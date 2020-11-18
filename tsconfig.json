@@ -33,7 +33,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx", "src/shims-vue.d.js", "src/shims-tsx.d.js", "src/main.ts", "src/router/index.ts"
   ],
   "exclude": [
     "node_modules"
