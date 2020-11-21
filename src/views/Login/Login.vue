@@ -1,15 +1,12 @@
 <template>
-    <div>
-
-    </div>
+  <div>
+    <span>登录</span>
+  </div>
 </template>
 
 <script>
-export default {
-
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>
-
 </style>

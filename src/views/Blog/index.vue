@@ -1,15 +1,10 @@
 <template>
-    <div>
-
-    </div>
+  <div>我是博客</div>
 </template>
 
 <script>
-export default {
-
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>
-
 </style>

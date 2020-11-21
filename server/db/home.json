@@ -1,0 +1,38 @@
+{
+    "success": true,
+    "message": "success",
+    "code": 200,
+    "timestamp": 1573523295692,
+    "result": [
+        {
+            "id": 7,
+            "name": "轮播图",
+            "type": 0,
+            "sortOrder": 0,
+            "position": 0,
+            "limitNum": 5,
+            "status": 1,
+            "remark": "",
+            "created": 1523766787000,
+            "updated": 1523766787000,
+            "panelContents": [
+                {
+                    "id": 70,
+                    "panelId": 7,
+                    "type": 0,
+                    "productId": 150635087972564,
+                    "sortOrder": 1,
+                    "fullUrl": "",
+                    "picUrl": "file:///E:/python/ruanjian/sublimetext/xiangmu/Personal%20project/wintopay/my-xmall/src/assets/images/1.png",
+                    "picUrl2": "file:///E:/python/ruanjian/sublimetext/xiangmu/Personal%20project/wintopay/my-xmall/src/assets/images/2.png",
+                    "created": 1569839898000,
+                    "updated": 1569843454000,
+                    "salePrice": 1,
+                    "productName": "支付测试商品 IPhone X 全面屏 全面绽放",
+                    "subTitle": "此仅为支付测试商品 拍下不会发货",
+                    "productImageBig": "https://i.loli.net/2019/09/30/CAZ6QrXPBoh5aIT.png"
+                }
+            ]
+        }
+    ]
+}
