@@ -22,12 +22,12 @@
             <el-col :span="12">
               <el-dropdown trigger="click">
                 <span class="el-dropdown-link">
-                  <img src="../assets/images/语言.png" style="width: 15px" />
+                  <img src="@/assets/images/语言.png" style="width: 15px" />
                   语言<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item>
-                    <img src="../assets/images/语言.png" style="width: 15px" />
+                    <img src="@/assets/images/语言.png" style="width: 15px" />
                     English</el-dropdown-item
                   >
                   <el-dropdown-item>简体中文</el-dropdown-item>
@@ -100,7 +100,7 @@
       <div class="container">
         <div class="left">
           <a href="#">
-            <img src="../assets/images/logo.png" alt="" />
+            <img src="@/assets/images/logo.png" alt="" />
           </a>
         </div>
         <div class="right">
