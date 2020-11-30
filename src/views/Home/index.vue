@@ -23,20 +23,19 @@
     </div>
     <div class="good" v-for="(item, index) in homeList" :key="index">
       <el-row class="good-item" v-if="item.type === 1">
-        <el-col  v-for="(o, i) in item.panelContents" :key="i" class="good-item1">
+        <el-col  v-for="(goods, i) in item.panelContents" :key="i" class="good-item1">
           <el-card :body-style="{ padding: '0px' }">
             <div class="good-img">
-              <a href="#">
-                <img
-                  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                  class="image"
-                />
+              <a>
+                <img v-lazy='goods.productImageBig' alt="">
               </a>
             </div>
-            <h4 class="good-title">商品标题</h4>
-            <h6 class="sub-title">副标题</h6>
+            <h4 class="good-title">{{goods.productName}}</h4>
+            <h6 class="sub-title">{{goods.subTitle}}</h6>
             <div class="good-price">
               <span>¥</span>
+              {{Number(goods.salePrice).toFixed(2)}}
+              <s>¥2</s>
             </div>
             <div class="good-btn">
               <a href="#" class="good-shop">
@@ -54,6 +53,44 @@
         </el-col>
       </el-row>
     </div>
+
+    <!-- 固定定位 -->
+    <div class="contact" v-if="isShop">
+      <button class="btn" @click="changeClick()" value="true">
+        <img src="@/assets/images/右箭头.png" alt="" class="btn-img">
+      </button>
+      <div class="contact-info">
+        <p class="service">
+          在线客服
+        </p>
+        <ul class="q">
+          <li>
+            <a href="#">
+              <img src="@/assets/images/QQ.png" alt="">
+              销售
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img src="@/assets/images/QQ.png" alt="">
+              技术支持
+            </a>
+          </li>
+        </ul>
+        <p class="tel">
+            客服电话<br><br>
+            18888888888 <br><br>
+            微信二维码
+        </p>
+        <img src="@/assets/images/二维码.png" alt="" class="code">
+      </div>
+    </div>
+
+    <div class="contact-btn">
+      <button class="btn" @click="changeClick()">
+        <img src="@/assets/images/左箭头.png" alt="" class="btn-img">
+      </button>
+    </div>
   </div>
 </template>
 
@@ -63,6 +100,7 @@ export default {
     return {
       banner: [],
       homeList: [],
+      isShop: true,
     };
   },
   async created() {
@@ -80,6 +118,11 @@ export default {
     } catch (error) {
       console.log(error.message);
     }
+  },
+  methods: {
+    changeClick() {
+      this.isShop = !this.isShop;
+    },
   },
 };
 </script>
@@ -148,6 +191,7 @@ export default {
   margin-left: 20px;
   color: #444;
   font-size: 14px;
+  text-decoration: line-through;
 }
 
 .good .good-item .good-btn {
@@ -156,6 +200,7 @@ export default {
   background-color: #eee;
   line-height: 40px;
   text-align: center;
+  margin-left: 20px;
 }
 
 .good .good-item .good-btn a {
@@ -185,5 +230,99 @@ export default {
 .good .good-item .good-btn .good-com {
   width: 52px;
   height: 40px;
+}
+//特色商品end
+
+//固定联系star
+.contact{
+  position: fixed;
+  bottom: 60px;
+  right: 0;
+  float: right;
+  z-index: 1001;
+}
+
+.contact-btn{
+  position: fixed;
+  bottom: 359px;
+  right: 0;
+  z-index: 1000;
+}
+
+.contact-btn .btn{
+  width: 50px;
+  height: 45px;
+  background-color: yellow;
+}
+
+.contact-btn .btn img{
+  width: 15px;
+  height: 15px;
+}
+
+.contact .btn{
+  width: 50px;
+  height: 45px;
+  background-color: yellow;
+  position: absolute;
+  top: 0;
+  left: -50px;
+}
+
+.contact .btn img{
+  width: 15px;
+  height: 15px;
+}
+
+.contact .contact-info{
+  width: 170px;
+  height: 344px;
+}
+
+.contact .contact-info .service{
+  width: 170px;
+  height: 45px;
+  background-color: orange;
+  line-height: 45px;
+  color: white;
+  padding-left: 10px;
+}
+
+.contact .contact-info .q{
+  width: 170px;
+  color: #23a1d1;
+  background-color: white;
+}
+
+.contact .contact-info .q li{
+  width: 170px;
+  height: 45px;
+  line-height: 45px;
+  padding-left: 10px;
+  border: 0.5px solid gray;
+}
+
+.contact .contact-info .q a img{
+  width: 30px;
+  height: 34px;
+}
+
+.contact .contact-info p{
+  width: 170px;
+  height: 123px;
+}
+
+.contact .contact-info .tel{
+  width: 170px;
+  height: 123px;
+  background-color: white;
+  padding-left: 10px;
+  border: 0.5px solid gray;
+}
+
+.contact .contact-info .code{
+  width: 170px;
+  height: 121px;
+  background-color: gray;
 }
 </style>

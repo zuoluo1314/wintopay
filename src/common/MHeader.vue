@@ -62,8 +62,12 @@
                 会员账户<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item> 登录</el-dropdown-item>
-                <el-dropdown-item>注册</el-dropdown-item>
+                <el-dropdown-item>
+                  <router-link :to="{ name: 'Resiter' }" class="nav-sub">注册</router-link>
+                </el-dropdown-item>
+                <el-dropdown-item>
+                  <router-link :to="{ name: 'Login' }" class="nav-sub">登录</router-link>
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </a>
@@ -134,13 +138,6 @@
     <!-- 导航2实现-->
     <div class="nav">
       <div class="container">
-        <!-- <el-breadcrumb separator=""  class="w">
-          <el-breadcrumb-item :to="{ path: '/kitchen' }"
-            >厨房用品</el-breadcrumb-item
-          >
-          <el-breadcrumb-item :to="{ path: '/blog' }">博客</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/news' }">新闻</el-breadcrumb-item>
-        </el-breadcrumb> -->
         <router-link :to="{ name: 'Kitchen' }" class="nav-sub">厨房用品</router-link>
         <router-link :to="{ name: 'Blog' }" class="nav-sub" >博客</router-link>
         <router-link :to="{ name: 'News' }" class="nav-sub">新闻</router-link>

@@ -2,10 +2,11 @@ import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 // import Index from '@/views/Index.vue';
 import Home from '@/views/Home/index.vue';
-import Login from '@/views/Login/Login.vue';
+import Login from '@/views/Login/index.vue';
 import Kitchen from '@/views/Kitchen/index.vue';
 import Blog from '@/views/Blog/index.vue';
 import News from '@/views/News/index.vue';
+import Resiter from '@/views/Resiter/index.vue';
 
 Vue.use(VueRouter);
 
@@ -29,6 +30,10 @@ const routes = [
     path: '/blog',
     name: 'Blog',
     component: Blog,
+    // 全局守卫2
+    meta: {
+      requireAuth: true,
+    },
   },
   {
     path: '/news',
@@ -38,7 +43,12 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    commponet: Login,
+    component: Login,
+  },
+  {
+    path: '/resiter',
+    name: 'Resiter',
+    component: Resiter,
   },
 ];
 
