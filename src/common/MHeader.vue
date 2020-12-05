@@ -256,10 +256,9 @@ export default {
     },
   },
   // 购物车8 当前组件加载完毕，获取后端购物车中存储的数据
-  // mounted() {
-  //   alert('组件加载完成');
-  //   this.INITBUYCART();
-  // },
+  mounted() {
+    this.INITBUYCART();
+  },
 };
 </script>
 

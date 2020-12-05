@@ -20,18 +20,12 @@ export default new Vuex.Store({
       setStore('userInfo', info);
     },
     // 购物车7 网页初始化时从本地缓存获取购物车数据
-    // INITBUYCART(state) {
-    //   const initCart = localStorage.getItem('buyCart');
-    //   console.log(initCart);
-    //   alert('初始化了');
-    //   if (initCart) {
-    //     alert('初始化有数据');
-    //     state.cartList = JSON.parse(initCart);
-    //     console.log(state.cartList);
-    //   } else {
-    //     alert('初始化数据为空');
-    //   }
-    // },
+    INITBUYCART(state) {
+      const initCart = localStorage.getItem('buyCart');
+      if (initCart) {
+        state.cartList = JSON.parse(initCart);
+      }
+    },
     // 购物车4 接受首页购物车点击商品 传过来的商品数据 添加到cartlist中
     ADDCART(state, {
       productId,
@@ -59,19 +53,17 @@ export default new Vuex.Store({
             }
           } else {
             falg = true;
-            alert('没找到加过的产品');
           }
         });
       }
       if (!cart.length || falg) {
         // goods.productNum = productNum;
-        alert('不一样产品添加');
         cart.push(goods);
       }
       state.cartList = cart;
       // 调用utils>storage.js 接口中setStore存储数据
-      setStore('buyCart', cart);
-      console.log(state.cartList);
+      const carts = JSON.stringify(cart);
+      setStore('buyCart', carts);
     },
   },
   actions: {
