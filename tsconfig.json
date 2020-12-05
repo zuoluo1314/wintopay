@@ -3,6 +3,8 @@
     "target": "esnext",
     "module": "esnext",
     "strict": true,
+    "noImplicitAny": false,
+    "allowJs": true,
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
@@ -33,7 +35,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx", "src/shims-vue.d.js", "src/shims-tsx.d.js", "src/main.ts", "src/router/main.ts"
+    "tests/**/*.tsx", "src/shims-vue.d.js", "src/shims-tsx.d.js", "src/main.js", "src/router/main.ts", "src/utils/storage.js", "src/store/index.js"
   ],
   "exclude": [
     "node_modules"

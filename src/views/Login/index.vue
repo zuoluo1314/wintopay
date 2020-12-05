@@ -1,4 +1,5 @@
 <template>
+<!-- 登录2：登录组件样式实现 -->
   <div class="login">
     <div class="box">
       <el-form
@@ -37,7 +38,9 @@
 </template>
 
 <script>
+// 数据持久化2：导入配置
 import { setStore, getStore, removeStore } from '@/utils/storage';
+import axios from 'axios';
 
 export default {
   data() {
@@ -68,22 +71,27 @@ export default {
     };
   },
   methods: {
+    // 登录9 完成提交登录操作，前提完成登录和验证接口、数据持久化
     submitForm(formName) {
       // this.$refs[formName]  获取整个form实例对象，调用验证方法
       this.$refs[formName].validate(async (valid) => {
         // valid 表示是否验证成功 成功true
         if (valid) {
-          alert('点击登录了');
           // 获取用户名和密码
           // const {user,pass} = this.ruleForm;
           const res = await this.$http.post('/api/login', this.ruleForm);
           // res后端返回的数据
           if (res.data.code === 200) {
             const { username, token, id } = res.data;
-            //  数据持久化2 持久化 存储
+            //  数据持久化3 持久化 存储
             setStore('token', token);
             setStore('id', id);
-            console.log(this.cart);
+            setStore('user', username);
+            // 将数据提交给vuex，改变login的真假值和获取userinfo信息
+            axios.post('/api/validate', {}).then((ress) => {
+              const datas = ress.data;
+              this.$store.commit('ISLOGIN', datas);
+            });
 
             if (this.cart && this.cart.length) {
               this.cart.forEach(async (item) => {
@@ -99,7 +107,6 @@ export default {
             }
           }
         } else {
-          alert('登录验证失败了');
           console.log('error submit!!');
           return false;
         }

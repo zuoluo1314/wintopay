@@ -61,13 +61,46 @@
                 <img src="../assets/images/会员.png" style="width: 15px" />
                 会员账户<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>
-                  <router-link :to="{ name: 'Resiter' }" class="nav-sub">注册</router-link>
-                </el-dropdown-item>
-                <el-dropdown-item>
-                  <router-link :to="{ name: 'Login' }" class="nav-sub">登录</router-link>
-                </el-dropdown-item>
+              <el-dropdown-menu slot="dropdown" class="drop">
+                <!-- 登录1：使用element下拉组件，完成样式实现 通过v-is进行登录非登录状态实现 -->
+                <span class="noLogin" v-if="!login">
+                  <el-dropdown-item>
+                    <router-link :to="{ name: 'Resiter' }" class="nav-sub"
+                      >注册</router-link
+                    >
+                  </el-dropdown-item>
+                  <el-dropdown-item>
+                    <router-link :to="{ name: 'Login' }" class="nav-sub"
+                      >登录</router-link
+                    >
+                  </el-dropdown-item>
+                </span>
+
+                <span class="isLogin" v-if="login">
+                  <!-- <span
+                    class="avatar"
+                    :style="{
+                      backgroundImage: 'url(' + userInfo.file + ')',
+                    }"
+                  >
+                  </span> -->
+                  <!-- <p class="name">{{ userInfo.username }}</p> -->
+                  <el-dropdown-item>
+                    <router-link to="/user/account">会员账户</router-link>
+                  </el-dropdown-item>
+                  <el-dropdown-item>
+                    <router-link to="/user/order">历史订单</router-link>
+                  </el-dropdown-item>
+                  <el-dropdown-item>
+                    <router-link to="/user/sum">账户余额</router-link>
+                  </el-dropdown-item>
+                  <el-dropdown-item>
+                    <router-link to="/user/download">下载文件</router-link>
+                  </el-dropdown-item>
+                  <el-dropdown-item>
+                    <a href="javascript:;" @click="logout">退出</a>
+                  </el-dropdown-item>
+                </span>
               </el-dropdown-menu>
             </el-dropdown>
           </a>
@@ -121,15 +154,39 @@
               ></el-button>
             </el-input>
           </div>
+          <!-- 购物车1：样式实现 -->
           <div class="shop">
-            <a href="#">
-              <img
+            <el-dropdown trigger="click">
+              <span class="el-dropdown-link">
+                <img
                 src="../assets/images/购物车.png"
                 alt=""
                 style="width: 15px"
               />
-              <span> 0项商品-¥0.00 </span>
-            </a>
+              <span> {{totalNum}}项商品-¥{{totalPrice}} </span>
+              </span>
+              <el-dropdown-menu slot="dropdown" class="drop1">
+                <span class="item">
+                  <el-dropdown-item class="item-cart" v-for="(goods,index) in cartList" :key='index'>
+                    <span class="item-img">
+                      <img :src="goods.productImageBig" alt="">
+                    </span>
+                    <span>
+                        <a href="https://www.sg2288.com/index.php?route=product/product&product_id=40">{{goods.productName}}</a>
+                    </span>
+                    <span>
+                      x{{goods.productNum}}
+                    </span>
+                    <span>
+                      ${{goods.salePrice}}
+                    </span>
+                    <span>
+                      <a href="#">删除</a>
+                    </span>
+                  </el-dropdown-item>
+                </span>
+              </el-dropdown-menu>
+            </el-dropdown>
           </div>
         </div>
       </div>
@@ -138,8 +195,10 @@
     <!-- 导航2实现-->
     <div class="nav">
       <div class="container">
-        <router-link :to="{ name: 'Kitchen' }" class="nav-sub">厨房用品</router-link>
-        <router-link :to="{ name: 'Blog' }" class="nav-sub" >博客</router-link>
+        <router-link :to="{ name: 'Kitchen' }" class="nav-sub"
+          >厨房用品</router-link
+        >
+        <router-link :to="{ name: 'Blog' }" class="nav-sub">博客</router-link>
         <router-link :to="{ name: 'News' }" class="nav-sub">新闻</router-link>
       </div>
     </div>
@@ -147,11 +206,65 @@
 </template>
 
 <script>
-export default {};
+import { mapState, mapMutations } from 'vuex';
+import { getStore, removeStore } from '@/utils/storage';
+
+export default {
+  data() {
+    return {
+      // 获取vuex中login数据
+      // login: this.$store.state.login,
+      // userInfo: this.$store.state.userInfo,
+      // cartList: this.$store.state.cartList,
+    };
+  },
+  computed: {
+    // 登录10：获取vuex中login值，从而渲染登录与非登录样式的实现
+    // 购物车6：从vuex中获取cartList数据，在页面上进行渲染
+    ...mapState(['login', 'cartList']),
+    ...mapMutations(['INITBUYCART']),
+    // 计算总数量
+    // reduce  对数组每一项进行遍历，但是reduce() 可同时将前面数组项遍历产生的结果与当前遍历项进行运算
+    totalNum() {
+      return (
+        console.log(this.cartList),
+        this.cartList.reduce((total, item) => {
+          let obj = total;
+          obj += item.productNum;
+          return obj;
+        }, 0)
+      );
+    },
+    // 计算总价格
+    totalPrice() {
+      return (
+        this.cartList.reduce((total, item) => {
+          let obj = total;
+          obj += item.productNum * item.salePrice;
+          return obj;
+        }, 0)
+      );
+    },
+  },
+  methods: {
+    // 登录11：登录退出
+    logout() {
+      removeStore('token');
+      removeStore('user');
+      // 跳转到首页
+      window.location.href = '/';
+    },
+  },
+  // 购物车8 当前组件加载完毕，获取后端购物车中存储的数据
+  // mounted() {
+  //   alert('组件加载完成');
+  //   this.INITBUYCART();
+  // },
+};
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/style/reset";
+@import '../assets/style/reset';
 // 顶部star
 .topBar {
   width: 100%;
@@ -193,6 +306,11 @@ export default {};
   margin-top: -69px;
 }
 
+.drop{
+  margin-top: -20px;
+  margin-left: -60px;
+}
+
 .topBar .container .right .q {
   background-color: #007dcb;
   color: #dfeef7;
@@ -231,7 +349,6 @@ export default {};
   width: 750px;
   height: 122px;
   float: left;
-  // line-height: 122px;
   margin-left: 100px;
 }
 
@@ -255,6 +372,33 @@ export default {};
   float: right;
   margin-top: -122px;
   margin-right: -110px;
+}
+
+.drop1{
+  margin-right: -70px;
+}
+
+.item-img{
+  float: left;
+}
+
+.item-img img{
+  width: 60px;
+  height: 60px;
+  margin-top: 20px;
+}
+
+.item-cart{
+  width: 420px;
+  height: 100px;
+  line-height: 100px;
+}
+
+.item-cart span{
+  display: inline-block;
+  height: 100px;
+  width: 80px;
+  // margin-left: 5px;
 }
 
 .header .container .right .shop:hover {
@@ -284,7 +428,7 @@ export default {};
 //   color:white;
 //   background-color:red;
 // }
-.nav .container .nav-sub{
+.nav .container .nav-sub {
   color: #ffe5dd;
   font-size: 12px;
   margin-right: 20px;
@@ -292,7 +436,7 @@ export default {};
   display: inline-block;
 }
 
-.nav .container .nav-sub:hover{
+.nav .container .nav-sub:hover {
   background-color: royalblue;
 }
 </style>

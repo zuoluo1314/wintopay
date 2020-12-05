@@ -72,7 +72,8 @@
                     "created": 1523790463000,
                     "updated": 1524151234000,
                     "salePrice": 1,
-                    "productName": "捐赠商品",
+                    "productName": "玻璃茶几",
+                    "productNum": 1,
                     "subTitle": "您的捐赠将用于本站维护 给您带来更好的体验",
                     "productImageBig": "https://www.sg2288.com/image/cache/catalog/demo/product/product_9/product9_1-200x200.jpg"
                 },
@@ -89,7 +90,8 @@
                     "created": 1523790480000,
                     "updated": 1524151248000,
                     "salePrice": 1,
-                    "productName": "支付测试商品 IPhone X 全面屏 全面绽放",
+                    "productName": "躺式沙发",
+                    "productNum": 1,
                     "subTitle": "此仅为支付测试商品 拍下不会发货",
                     "productImageBig": "https://www.sg2288.com/image/cache/catalog/demo/product/product19/product19_1-200x200.jpg"
                 },
@@ -97,7 +99,7 @@
                     "id": 27,
                     "panelId": 8,
                     "type": 0,
-                    "productId": 150642571432835,
+                    "productId": 150642571432830,
                     "sortOrder": 3,
                     "fullUrl": "https://www.smartisan.com/category?id=69",
                     "picUrl": "https://resource.smartisan.com/resource/4/489673079577637073.png",
@@ -106,7 +108,8 @@
                     "created": 1523790504000,
                     "updated": 1524151261000,
                     "salePrice": 1,
-                    "productName": "捐赠商品",
+                    "productName": "包式座椅",
+                    "productNum": 1,
                     "subTitle": "您的捐赠将用于本站维护 给您带来更好的体验",
                     "productImageBig": "https://www.sg2288.com/image/cache/catalog/demo/product/product_1/product1_1-200x200.jpg"
                 },
@@ -114,7 +117,7 @@
                     "id": 28,
                     "panelId": 8,
                     "type": 0,
-                    "productId": 150635087972564,
+                    "productId": 150635087972568,
                     "sortOrder": 4,
                     "fullUrl": "https://www.smartisan.com/",
                     "picUrl": "https://resource.smartisan.com/resource/fe6ab43348a43152b4001b4454d206ac.jpg",
@@ -123,7 +126,8 @@
                     "created": 1523790538000,
                     "updated": 1524151273000,
                     "salePrice": 1,
-                    "productName": "支付测试商品 IPhone X 全面屏 全面绽放",
+                    "productName": "简约座椅",
+                    "productNum": 1,
                     "subTitle": "此仅为支付测试商品 拍下不会发货",
                     "productImageBig": "https://www.sg2288.com/image/cache/catalog/demo/product/product21/product21_1-200x200.jpg"
                 }

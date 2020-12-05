@@ -37,11 +37,16 @@
               {{Number(goods.salePrice).toFixed(2)}}
               <s>¥2</s>
             </div>
+            <!-- 购物车2：购物车按钮样式实现 -->
             <div class="good-btn">
-              <a href="#" class="good-shop">
-                <img src="@/assets/images/购物车.png" alt="" />
-                加入购物车
-              </a>
+                <el-button
+                size="medium"
+                class="good-shop"
+                @click="addCart(goods.productId,goods.salePrice,goods.productName,goods.productImageBig,goods.productNum)"
+              >
+              <img src="@/assets/images/购物车.png" alt="" />
+              加入购物车
+              </el-button>
               <a href="#" class="good-col">
                 <img src="@/assets/images/收藏.png" alt="" />
               </a>
@@ -95,6 +100,8 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex';
+
 export default {
   data() {
     return {
@@ -119,9 +126,42 @@ export default {
       console.log(error.message);
     }
   },
+  // 获取vuex中登录状态
+  computed: {
+    ...mapState(['login']),
+    ...mapMutations(['ADDCART']),
+  },
   methods: {
     changeClick() {
       this.isShop = !this.isShop;
+    },
+    // 购物车5:将添加购物商品信息传给vuex中
+    addCart(id, price, name, img, num) {
+      if (this.login) {
+        // 用户已登录
+        // this.$http.post("/api/addCart", {
+        //   userId: getStore("id"),
+        //   productId:id,
+        //   productNum:1
+        // });
+        // 已经存储到后端中， 将当前的商品存储到store的cartList
+        this.$store.commit('ADDCART', {
+          productId: id,
+          salePrice: price,
+          productName: name,
+          productImageBig: img,
+          productNum: num,
+        });
+      } else {
+        // 如果用户未登录 也要将商品存储到store的cartList
+        this.$store.commit('ADDCART', {
+          productId: id,
+          salePrice: price,
+          productName: name,
+          productImageBig: img,
+          productNum: num,
+        });
+      }
     },
   },
 };
@@ -201,6 +241,14 @@ export default {
   line-height: 40px;
   text-align: center;
   margin-left: 20px;
+}
+
+.good .good-item .good-btn .good-shop{
+  background-color: #eee;
+}
+
+.good .good-item .good-btn .good-shop:hover{
+  background-color: gray;
 }
 
 .good .good-item .good-btn a {
