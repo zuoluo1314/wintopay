@@ -171,8 +171,8 @@
                     <span class="item-img">
                       <img :src="goods.productImageBig" alt="">
                     </span>
-                    <span>
-                        <a href="https://www.sg2288.com/index.php?route=product/product&product_id=40">{{goods.productName}}</a>
+                    <span class="item-title">
+                        <a :href="goods.productImageBig">{{goods.productName}}</a>
                     </span>
                     <span>
                       x{{goods.productNum}}
@@ -181,10 +181,13 @@
                       ${{goods.salePrice}}
                     </span>
                     <span>
-                      <a href="#">删除</a>
+                      <a href="#" class="del" @click="del(index)">删除</a>
                     </span>
                   </el-dropdown-item>
                 </span>
+                <el-dropdown-item class="item-cart" v-if='!totalNum'>
+                    <span>购物车为空</span>
+                </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
@@ -207,7 +210,8 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
-import { getStore, removeStore } from '@/utils/storage';
+import { getStore, removeStore, setStore } from '@/utils/storage';
+// import { setStore } from '../utils/storage';
 
 export default {
   data() {
@@ -227,7 +231,6 @@ export default {
     // reduce  对数组每一项进行遍历，但是reduce() 可同时将前面数组项遍历产生的结果与当前遍历项进行运算
     totalNum() {
       return (
-        console.log(this.cartList),
         this.cartList.reduce((total, item) => {
           let obj = total;
           obj += item.productNum;
@@ -251,7 +254,22 @@ export default {
     logout() {
       removeStore('token');
       removeStore('user');
+      // 删除购物车数据
+      removeStore('buyCart');
       // 跳转到首页
+      window.location.href = '/';
+    },
+    del(id) {
+      // 第一步取到当前本地储存的购物车数据
+      const initCart = localStorage.getItem('buyCart');
+      // 第二步数据进行解析转为对象   此时initDate为一个数组包裹的数据为对象
+      const initData = JSON.parse(initCart);
+      // 第三步数据进行删除顾头不够尾，返回的initDate是删除之后留下的数据
+      initData.splice(id, id + 1);
+      // 第四步删除后的购物车数据到本地，进行先转化为json格式
+      const initDatas = JSON.stringify(initData);
+      setStore('buyCart', initDatas);
+      // 第五步记得刷新跳转到首页，进行数据更新
       window.location.href = '/';
     },
   },
@@ -391,6 +409,7 @@ export default {
   width: 420px;
   height: 100px;
   line-height: 100px;
+  text-align: center;
 }
 
 .item-cart span{
