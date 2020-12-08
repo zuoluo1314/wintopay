@@ -1,5 +1,5 @@
 <template>
-<!-- 登录2：登录组件样式实现 -->
+<!-- 登录2：登录组件样式实现-采用的是form表单的自定义校验规则 -->
   <div class="login">
     <div class="box">
       <el-form

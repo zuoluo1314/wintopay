@@ -12,6 +12,7 @@
     "@types/blueimp-md5": "^2.7.0",
     "async-validator": "^3.5.1",
     "axios": "^0.21.0",
+    "blueimp-md5": "^2.18.0",
     "core-js": "^3.6.5",
     "element-ui": "^2.4.5",
     "storage.js": "^1.1.1",

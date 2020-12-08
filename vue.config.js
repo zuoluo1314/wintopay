@@ -7,7 +7,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser');
 //以上是接口实现的前提一定要加上  同时下载cnpm install jsonwebtoken(token)  cnpm install cors(跨域)  cnpm install body-parser(post插件)
-// npm i cors body-parse express jsonwebtoken -s
+// cnpm i cors body-parse express jsonwebtoken -s
 
 module.exports = {
     devServer: {
@@ -15,6 +15,7 @@ module.exports = {
             app.use(cors());
             app.use(bodyParser.json());
             app.use(bodyParser.urlencoded({ extended: false }))
+            
             app.get('/api/goods/home', (req, res) => {
                 //res为后端返回的数据
                 fs.readFile('./server/db/home.json', 'utf-8', (err, data) => {
@@ -90,6 +91,12 @@ module.exports = {
                         })
                     }
                 })
+            })
+
+            app.post('/api/register', (req, res) => {
+                console.log(req);
+                console.log(res);
+                alert('获取数据成功了');
             })
         }
     },
