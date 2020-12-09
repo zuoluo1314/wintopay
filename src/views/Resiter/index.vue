@@ -84,9 +84,9 @@
               @blur="getIphone"
             />
             <span>{{ mesIphone }}</span>
-
+            <!-- 手机验证码1：样式实现 -->
             <label>
-              <a href="#" style="">获取手机验证码</a>
+              <a href="javascript:;" @click="sendCode">{{ isRun?`${runTime}s后重新获取`:'获取手机验证码' }}</a>
             </label>
             <input
               type="text"
@@ -127,16 +127,22 @@ export default {
       mesRepass: '',
       radio: '1',
       iphone: '',
+      iphoneCode: '',
       code: '',
       code1: '',
       mesIphone: '',
       mesCode: '',
+      mesIphoneCode: '',
       // 保证没有输入任何值的情况下，不会注册成功
       errorMail: false,
       erroruser: false,
       errorpass: false,
       errorrepass: false,
       errorcode: false,
+      errorIphone: false,
+      errorIphoneCode: false,
+      isRun: false,
+      runTime: 30,
     };
   },
   components: {
@@ -252,33 +258,85 @@ export default {
     // 注册4：声明注册的函数
     async registerHandle() {
       if (this.errorMail && this.erroruser && this.errorpass && this.errorrepass && this.errorcode) {
-        alert('注册成功');
         // 完成注册，信息填写完毕
-        // 将注册信息，提交到后台 密码通过md5加密
-        axios.post('/api/register', {
+        // 将注册信息，提交到后台服务器保存起来 密码通过md5加密
+        const res = await axios.post('/api/register', {
           mail: this.mail,
           user: this.user,
           pass: md5(this.pass),
           repass: md5(this.repass),
         });
+        if (res.data.state === 200) {
+          alert('注册成功,数据保存了');
+        } else {
+          alert('注册失败');
+        }
         this.$router.push({ path: '/login' });
       } else {
         alert('请按要求填写全部信息');
       }
     },
-    // 手机号校验 手机号规则第一位为1 第二位为3-9 后面9为 \d为任意数字
-    getIphone() {
+    // 手机验证码3：手机号校验 手机号规则第一位为1 第二位为3-9 后面9为 \d为任意数字
+    async getIphone() {
       const re = /^1[3-9]\d{9}$/;
       if (re.test(this.iphone)) {
-        this.mesIphone = '';
+        // 验证手机号是否被注册 将手机号发送给服务器
+        const res = await axios.post('/api/iphone', this.iphone);
+        if (res.data.state === 200) {
+          this.mesIphone = '手机号没被注册';
+          this.errorIphone = true;
+        } else {
+          this.mesIphone = '手机号已经被注册';
+        }
       } else {
         this.mesIphone = '请输入正确的手机号';
       }
     },
 
-    // 手机验证码：声明提交函数
+    // 手机验证码7：校验
+    async getIphoneCode() {
+      const res = await axios.post('/api/validatecode', this.iphoneCode);
+      alert('校验开始');
+      if (res.data.state === 200) {
+        this.mesIphoneCode = '';
+        alert('验证码校验成功');
+        this.errorIphoneCode = true;
+      } else {
+        this.mesIphoneCode = '手机号验证码输入不正确';
+      }
+    },
+
+    // 手机验证码5：触发点击事件通知服务器发送手机验证码
+    async sendCode() {
+      // 先判断手机号验证是否成功了
+      if (this.errorIphone) {
+        // 开启倒计时，点击事件直接返回，无需要往下执行
+        if (this.isRun) return;
+        const res = await axios.post('/api/code', this.iphone);
+        if (res.data.state === 200) {
+          this.mesIphoneCode = '';
+          this.iphoneCode = 520;
+          // 开启倒计时
+          this.isRun = true;
+          this.autoTimer = setInterval(() => {
+            if (this.runTime === 0) {
+              this.runTime = 30;
+              this.isRun = false;
+              clearInterval(this.autoTimer);
+            }
+            this.runTime -= 1;
+          }, 1000);
+        } else {
+          this.mesIphoneCode = '当前网络繁忙，请稍后再试';
+        }
+      } else {
+        alert('请输入正确的手机号');
+      }
+    },
+
+    // 手机验证码8：声明提交函数
     registerIphone() {
-      if (!this.mesIphone) {
+      if (this.errorIphone && this.errorIphoneCode) {
         alert('注册完成');
         this.$router.push({ path: '/login' });
       } else {

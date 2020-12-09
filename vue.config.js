@@ -27,6 +27,7 @@ module.exports = {
 
             // 登录3：模拟一个登陆的接口
             app.post('/api/login', (req, res) => {
+                console.log(res);
                 console.log(req.body.user);
                 // 登录成功获取用户名
                 let username = req.body.user
@@ -92,11 +93,55 @@ module.exports = {
                     }
                 })
             })
-
+            
+            // 注册2：写接口
             app.post('/api/register', (req, res) => {
-                console.log(req);
-                console.log(res);
-                alert('获取数据成功了');
+                res.json({
+                    state: 200,
+                    file: '/static/images/1570600179870.png',
+                    code: 200,
+                    address: null,
+                    balance: null,
+                    description: null,
+                    email: null,
+                    message: null,
+                    phone: null,
+                    points: null,
+                    sex: null,
+                    id: 62
+                })
+            })
+
+            // 手机验证码2：模拟验证手机号是否注册过接口
+            app.post('/api/iphone', (req, res) => {
+                res.json({
+                    state: 200,
+                    file: '/static/images/1570600179870.png',
+                    code: 200,
+                    address: null,
+                    balance: null,
+                    description: null,
+                    email: null,
+                    message: null,
+                    phone: null,
+                    points: null,
+                    sex: null,
+                    id: 62
+                })
+            })
+
+            //手机验证码4 通知服务器发送验证码
+            app.post('/api/code', (req, res) => {
+                res.json({
+                    state: 200,
+                })
+            })
+
+            //手机验证码6 通知服务器校验客户输入的手机验证码是否正确
+            app.post('/api/validateCode', (req, res) => {
+                res.json({
+                    state: 200,
+                })
             })
         }
     },
