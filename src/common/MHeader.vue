@@ -137,20 +137,26 @@
       <div class="container">
         <div class="left">
           <a href="#">
-            <img src="@/assets/images/logo.png" alt="" />
+            <router-link :to="{ name: 'Home' }"><img src="@/assets/images/logo.png" alt="" /></router-link>
           </a>
         </div>
         <div class="right">
+          <!-- 搜索功能实现1：样式实现 采用el-input复合型输入框 -->
           <div class="search">
+            <!-- 搜索功能实现7:绑定clear清空事件，返回到首页 -->
             <el-input
-              placeholder="请输入内容"
-              v-model="input3"
+              placeholder="请输入商品名称"
+              v-model="jquery"
               class="input-with-select"
+              clearable
+              @clear='pushHome'
             >
+            <!-- 搜索功能实现4：绑定搜索事件 -->
               <el-button
                 slot="append"
                 icon="el-icon-search"
                 class="btn"
+                @click="getJqueryList"
               ></el-button>
             </el-input>
           </div>
@@ -216,17 +222,15 @@ import { getStore, removeStore, setStore } from '@/utils/storage';
 export default {
   data() {
     return {
-      // 获取vuex中login数据
-      // login: this.$store.state.login,
-      // userInfo: this.$store.state.userInfo,
-      // cartList: this.$store.state.cartList,
+      jquery: '',
+      jqueryList: [],
     };
   },
   computed: {
     // 登录10：获取vuex中login值，从而渲染登录与非登录样式的实现
     // 购物车6：从vuex中获取cartList数据，在页面上进行渲染
-    ...mapState(['login', 'cartList']),
-    ...mapMutations(['INITBUYCART']),
+    ...mapState(['login', 'cartList', 'feaItem']),
+    ...mapMutations(['INITBUYCART', 'INITJQUERYLIST']),
     // 计算总数量
     // reduce  对数组每一项进行遍历，但是reduce() 可同时将前面数组项遍历产生的结果与当前遍历项进行运算
     totalNum() {
@@ -256,6 +260,8 @@ export default {
       removeStore('user');
       // 删除购物车数据
       removeStore('buyCart');
+      // 登录14登录持久化3：删除存储本地的true值，从而退出登录
+      removeStore('login');
       // 跳转到首页
       window.location.href = '/';
     },
@@ -272,10 +278,33 @@ export default {
       // 第五步记得刷新跳转到首页，进行数据更新
       window.location.href = '/';
     },
+    getJqueryList() {
+      // 第一步获取后台数据，特色商品的值
+      // 将搜素关键词和特色商品的值做对比
+      // 有相同的，将特色商品传递给搜索展示组件 并且进行跳转到展示组件页面
+      // 没有相同的，进行提醒没有搜索数据，没必要，做个alert提醒
+      this.feaItem.forEach((item) => {
+        if (this.jquery === item.productName) {
+          this.jqueryList.push(item);
+        }
+      });
+      if (this.jqueryList.length === 0) {
+        alert('没有搜索到的商品');
+      } else {
+        // 将搜索到的值发送给store
+        this.$store.commit('JQUERYLIST', this.jqueryList);
+        this.$router.push({ name: 'Jquery' });
+        // 清空搜索到的列表，否则每次点击搜索都会进行重复叠加 注意不要写成this.jqueryList = '',否则无法进行foreacha循环了，因为不是数组了
+        this.jqueryList = [];
+      }
+    },
+    pushHome() {
+      this.$router.push({ name: 'Home' });
+    },
   },
-  // 购物车8 当前组件加载完毕，获取后端购物车中存储的数据
   mounted() {
-    this.INITBUYCART();
+    // 购物车8 当前组件加载挂载完毕，获取后端购物车中存储的数据
+    this.$store.commit('INITBUYCART');
   },
 };
 </script>

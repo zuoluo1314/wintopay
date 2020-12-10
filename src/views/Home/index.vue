@@ -108,8 +108,10 @@ export default {
       banner: [],
       homeList: [],
       isShop: true,
+      feaItem: '',
     };
   },
+
   async created() {
     try {
       // 2.发起请求
@@ -118,6 +120,15 @@ export default {
       if (datas.code === 200) {
         const results = datas.result;
         this.homeList = results;
+        // 获取特色商品   js中如何使用循环
+        results.forEach((feaItem) => {
+          if (feaItem.type === 1) {
+            this.feaItem = feaItem.panelContents;
+          }
+        });
+        console.log(this.feaItem);
+        // 传送数据到store4：将特色商品数据传送到store
+        this.$store.dispatch('FEAITEM', this.feaItem);
         // 获取轮播图的数据
         const items = results.find((item) => item.type === 0);
         this.banner = items.panelContents;
@@ -126,10 +137,11 @@ export default {
       console.log(error.message);
     }
   },
-  // 获取vuex中登录状态
+  // 获取vuex中登录状态 记住先导入mapState, mapMutations
   computed: {
     ...mapState(['login']),
-    ...mapMutations(['ADDCART']),
+    // 传送数据到store3:导入获取特色商品函数
+    ...mapMutations(['ADDCART', 'FEAITEM']),
   },
   methods: {
     changeClick() {
@@ -153,14 +165,15 @@ export default {
           productNum: num,
         });
       } else {
-        // 如果用户未登录 也要将商品存储到store的cartList
-        this.$store.commit('ADDCART', {
-          productId: id,
-          salePrice: price,
-          productName: name,
-          productImageBig: img,
-          productNum: num,
-        });
+        // 如果用户未登录 跳转到登录页面
+        this.$router.push({ path: '/login' });
+        // this.$store.commit('ADDCART', {
+        //   productId: id,
+        //   salePrice: price,
+        //   productName: name,
+        //   productImageBig: img,
+        //   productNum: num,
+        // });
       }
     },
   },

@@ -7,6 +7,7 @@ import Kitchen from '@/views/Kitchen/index.vue';
 import Blog from '@/views/Blog/index.vue';
 import News from '@/views/News/index.vue';
 import Resiter from '@/views/Resiter/index.vue';
+import Jquery from '@/views/Jquery/index.vue';
 
 Vue.use(VueRouter);
 
@@ -49,6 +50,12 @@ const routes = [
     path: '/resiter',
     name: 'Resiter',
     component: Resiter,
+  },
+  // 搜索功能实现3：搜索展示界面路由设置
+  {
+    path: '/jquery',
+    name: 'Jquery',
+    component: Jquery,
   },
 ];
 

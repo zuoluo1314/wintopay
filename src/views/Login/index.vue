@@ -31,6 +31,7 @@
             >登录</el-button
           >
           <el-button>返回</el-button>
+          <h4>如未注册，请先<router-link :to="{ name: 'Resiter' }">注册</router-link></h4>
         </el-form-item>
       </el-form>
     </div>
@@ -83,7 +84,7 @@ export default {
           // res后端返回的数据
           if (res.data.code === 200) {
             const { username, token, id } = res.data;
-            //  数据持久化3 持久化 存储
+            //  数据持久化3 持久化 存储 后面如果需要取出来转化为json格式便于后面json解析取值比如 const carts = JSON.stringify(cart);
             setStore('token', token);
             setStore('id', id);
             setStore('user', username);
