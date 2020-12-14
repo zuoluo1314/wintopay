@@ -4,10 +4,22 @@ import axios from 'axios';
 import VueLazyload from 'vue-lazyload';
 // 数据持久化3导入
 import { getStore } from '@/utils/storage';
+import VueI18n from 'vue-i18n';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 import 'element-ui/lib/theme-chalk/index.css';
+// 中英文切换1 安装npm install vue-i18n --save  中英文切换2 lang文件夹建立中英文文件
+// 中英文切换3 项目引入  import VueI18n from 'vue-i18n';
+
+Vue.use(VueI18n);
+const i18n = new VueI18n({
+  // this.$i18n.locale // 通过切换locale的值来实现语言切换
+  messages: {
+    'zh-CN': require('./lang/zh'), // 中文语言包
+    'en-US': require('./lang/en'), // 英文语言包
+  },
+});
 
 // 使用vue-lazylocad 懒加载1
 Vue.use(VueLazyload);
@@ -95,6 +107,7 @@ router.beforeEach((to, from, next) => {
 new Vue({
   el: '#app',
   router,
+  i18n, // 中英文切换3 项目引入
   store,
   render: (h) => h(App),
 }).$mount('#app');

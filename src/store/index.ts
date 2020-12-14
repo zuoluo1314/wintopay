@@ -13,8 +13,20 @@ export default new Vuex.Store({
     showCart: false,
     feaItem: null,
     jqueryList: null,
+    language: 'zh-CN', // 语言标识  默认的语言
   },
   mutations: {
+    // 中英文切换5:将当前语言存储到store
+    LANGUAGE(state, language) {
+      state.language = language;
+      // 中英文切换7:持久化-储存数据
+      setStore('language', language);
+    },
+    // 中英文切换7:持久化-取出数据
+    INITLANGUAGE(state, language) {
+      const languages = localStorage.getItem('language');
+      state.language = languages;
+    },
     // 搜索功能实现5:接受搜索到的商品
     JQUERYLIST(state, jqueryList) {
       state.jqueryList = jqueryList;

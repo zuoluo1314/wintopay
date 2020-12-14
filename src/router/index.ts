@@ -8,6 +8,7 @@ import Blog from '@/views/Blog/index.vue';
 import News from '@/views/News/index.vue';
 import Resiter from '@/views/Resiter/index.vue';
 import Jquery from '@/views/Jquery/index.vue';
+import Buy from '@/views/Buy/index.vue';
 
 Vue.use(VueRouter);
 
@@ -56,6 +57,12 @@ const routes = [
     path: '/jquery',
     name: 'Jquery',
     component: Jquery,
+  },
+  // 结算3：路由跳转实现
+  {
+    path: '/buy',
+    name: 'Buy',
+    component: Buy,
   },
 ];
 

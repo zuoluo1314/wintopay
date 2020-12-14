@@ -26,11 +26,11 @@
                   语言<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
+                  <!-- 中英文切换4:绑定语言切换点击事件 -->
                   <el-dropdown-item>
                     <img src="@/assets/images/语言.png" style="width: 15px" />
-                    English</el-dropdown-item
-                  >
-                  <el-dropdown-item>简体中文</el-dropdown-item>
+                    <span @click="changeLanguageUs">English</span></el-dropdown-item>
+                  <el-dropdown-item><span @click="changeLanguageZh">简体中文</span></el-dropdown-item>
                   <el-dropdown-item>繁體中文</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -191,6 +191,11 @@
                     </span>
                   </el-dropdown-item>
                 </span>
+                <!-- 结算1：样式实现 -->
+                <el-dropdown-item>
+                    <span>{{totalNum}}项商品     合计¥{{totalPrice}}</span>
+                    <el-button type="primary" class="buy"><router-link :to="{ name: 'Buy' }">结算</router-link></el-button>
+                </el-dropdown-item>
                 <el-dropdown-item class="item-cart" v-if='!totalNum'>
                     <span>购物车为空</span>
                 </el-dropdown-item>
@@ -203,12 +208,13 @@
 
     <!-- 导航2实现-->
     <div class="nav">
+      <!--中英文切换5: 数据渲染 -->
       <div class="container">
         <router-link :to="{ name: 'Kitchen' }" class="nav-sub"
-          >厨房用品</router-link
+          >{{$t('m.navbar.Kitchen')}}</router-link
         >
-        <router-link :to="{ name: 'Blog' }" class="nav-sub">博客</router-link>
-        <router-link :to="{ name: 'News' }" class="nav-sub">新闻</router-link>
+        <router-link :to="{ name: 'Blog' }" class="nav-sub">{{$t('m.navbar.Blog')}}</router-link>
+        <router-link :to="{ name: 'News' }" class="nav-sub">{{$t('m.navbar.New')}}</router-link>
       </div>
     </div>
   </div>
@@ -217,7 +223,6 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 import { getStore, removeStore, setStore } from '@/utils/storage';
-// import { setStore } from '../utils/storage';
 
 export default {
   data() {
@@ -229,8 +234,8 @@ export default {
   computed: {
     // 登录10：获取vuex中login值，从而渲染登录与非登录样式的实现
     // 购物车6：从vuex中获取cartList数据，在页面上进行渲染
-    ...mapState(['login', 'cartList', 'feaItem']),
-    ...mapMutations(['INITBUYCART', 'INITJQUERYLIST']),
+    ...mapState(['login', 'cartList', 'feaItem', 'language']),
+    ...mapMutations(['INITBUYCART', 'INITJQUERYLIST', 'INITLANGUAGE']),
     // 计算总数量
     // reduce  对数组每一项进行遍历，但是reduce() 可同时将前面数组项遍历产生的结果与当前遍历项进行运算
     totalNum() {
@@ -254,6 +259,19 @@ export default {
     },
   },
   methods: {
+    // 中英文切换6:绑定事件实现  前提language在store中存储了，并且当前页面引入了
+    changeLanguageUs() {
+      if (this.language === 'zh-CN') {
+        this.$i18n.locale = 'en-US';
+        this.$store.commit('LANGUAGE', 'en-US');
+      }
+    },
+    changeLanguageZh() {
+      if (this.language === 'en-US') {
+        this.$i18n.locale = 'zh-CN';
+        this.$store.commit('LANGUAGE', 'zh-CN');
+      }
+    },
     // 登录11：登录退出
     logout() {
       removeStore('token');
@@ -305,6 +323,10 @@ export default {
   mounted() {
     // 购物车8 当前组件加载挂载完毕，获取后端购物车中存储的数据
     this.$store.commit('INITBUYCART');
+    // 中英文切换8:持久化:网页刷新组件挂载完毕，组件标签被渲染，触发INITLANGUAGE，取出本地language值，赋值给state
+    this.$store.commit('INITLANGUAGE');
+    // 中英文切换9:持久化 从状态栏获取当前设置的语言，设置默认值，达到持久化的目的
+    this.$i18n.locale = this.language; // 语言标识  默认的语言
   },
 };
 </script>
@@ -418,6 +440,10 @@ export default {
   float: right;
   margin-top: -122px;
   margin-right: -110px;
+}
+
+.buy {
+  float: right;
 }
 
 .drop1{
