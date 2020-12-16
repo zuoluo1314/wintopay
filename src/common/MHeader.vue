@@ -29,8 +29,15 @@
                   <!-- 中英文切换4:绑定语言切换点击事件 -->
                   <el-dropdown-item>
                     <img src="@/assets/images/语言.png" style="width: 15px" />
-                    <span @click="changeLanguageUs">English</span></el-dropdown-item>
-                  <el-dropdown-item><span @click="changeLanguageZh">简体中文</span></el-dropdown-item>
+                    <span @click="changeLanguageUs"
+                      >English</span
+                    ></el-dropdown-item
+                  >
+                  <el-dropdown-item
+                    ><span @click="changeLanguageZh"
+                      >简体中文</span
+                    ></el-dropdown-item
+                  >
                   <el-dropdown-item>繁體中文</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -137,7 +144,9 @@
       <div class="container">
         <div class="left">
           <a href="#">
-            <router-link :to="{ name: 'Home' }"><img src="@/assets/images/logo.png" alt="" /></router-link>
+            <router-link :to="{ name: 'Home' }"
+              ><img src="@/assets/images/logo.png" alt=""
+            /></router-link>
           </a>
         </div>
         <div class="right">
@@ -149,9 +158,9 @@
               v-model="jquery"
               class="input-with-select"
               clearable
-              @clear='pushHome'
+              @clear="pushHome"
             >
-            <!-- 搜索功能实现4：绑定搜索事件 -->
+              <!-- 搜索功能实现4：绑定搜索事件 -->
               <el-button
                 slot="append"
                 icon="el-icon-search"
@@ -163,29 +172,31 @@
           <!-- 购物车1：样式实现 -->
           <div class="shop">
             <el-dropdown trigger="click">
-              <span class="el-dropdown-link">
+              <span class="el-dropdown-link test">
                 <img
-                src="../assets/images/购物车.png"
-                alt=""
-                style="width: 15px"
-              />
-              <span> {{totalNum}}项商品-¥{{totalPrice}} </span>
+                  src="../assets/images/购物车.png"
+                  alt=""
+                  style="width: 15px"
+                />
+                <span> {{ totalNum }}项商品-¥{{ totalPrice }} </span>
               </span>
               <el-dropdown-menu slot="dropdown" class="drop1">
                 <span class="item">
-                  <el-dropdown-item class="item-cart" v-for="(goods,index) in cartList" :key='index'>
+                  <el-dropdown-item
+                    class="item-cart"
+                    v-for="(goods, index) in cartList"
+                    :key="index"
+                  >
                     <span class="item-img">
-                      <img :src="goods.productImageBig" alt="">
+                      <img :src="goods.productImageBig" alt="" />
                     </span>
                     <span class="item-title">
-                        <a :href="goods.productImageBig">{{goods.productName}}</a>
+                      <a :href="goods.productImageBig">{{
+                        goods.productName
+                      }}</a>
                     </span>
-                    <span>
-                      x{{goods.productNum}}
-                    </span>
-                    <span>
-                      ${{goods.salePrice}}
-                    </span>
+                    <span> x{{ goods.productNum }} </span>
+                    <span> ${{ goods.salePrice }} </span>
                     <span>
                       <a href="#" class="del" @click="del(index)">删除</a>
                     </span>
@@ -193,11 +204,15 @@
                 </span>
                 <!-- 结算1：样式实现 -->
                 <el-dropdown-item>
-                    <span>{{totalNum}}项商品     合计¥{{totalPrice}}</span>
-                    <el-button type="primary" class="buy"><router-link :to="{ name: 'Buy' }">结算</router-link></el-button>
+                  <span>{{ totalNum }}项商品 合计¥{{ totalPrice }}</span>
+                  <el-button type="primary" class="buy"
+                    ><router-link :to="{ name: 'Buy' }"
+                      >结算</router-link
+                    ></el-button
+                  >
                 </el-dropdown-item>
-                <el-dropdown-item class="item-cart" v-if='!totalNum'>
-                    <span>购物车为空</span>
+                <el-dropdown-item class="item-cart" v-if="!totalNum">
+                  <span>购物车为空</span>
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -210,11 +225,15 @@
     <div class="nav">
       <!--中英文切换5: 数据渲染 -->
       <div class="container">
-        <router-link :to="{ name: 'Kitchen' }" class="nav-sub"
-          >{{$t('m.navbar.Kitchen')}}</router-link
-        >
-        <router-link :to="{ name: 'Blog' }" class="nav-sub">{{$t('m.navbar.Blog')}}</router-link>
-        <router-link :to="{ name: 'News' }" class="nav-sub">{{$t('m.navbar.New')}}</router-link>
+        <router-link :to="{ name: 'Kitchen' }" class="nav-sub">{{
+          $t('m.navbar.Kitchen')
+        }}</router-link>
+        <router-link :to="{ name: 'Blog' }" class="nav-sub">{{
+          $t('m.navbar.Blog')
+        }}</router-link>
+        <router-link :to="{ name: 'News' }" class="nav-sub">{{
+          $t('m.navbar.New')
+        }}</router-link>
       </div>
     </div>
   </div>
@@ -239,23 +258,19 @@ export default {
     // 计算总数量
     // reduce  对数组每一项进行遍历，但是reduce() 可同时将前面数组项遍历产生的结果与当前遍历项进行运算
     totalNum() {
-      return (
-        this.cartList.reduce((total, item) => {
-          let obj = total;
-          obj += item.productNum;
-          return obj;
-        }, 0)
-      );
+      return this.cartList.reduce((total, item) => {
+        let obj = total;
+        obj += item.productNum;
+        return obj;
+      }, 0);
     },
     // 计算总价格
     totalPrice() {
-      return (
-        this.cartList.reduce((total, item) => {
-          let obj = total;
-          obj += item.productNum * item.salePrice;
-          return obj;
-        }, 0)
-      );
+      return this.cartList.reduce((total, item) => {
+        let obj = total;
+        obj += item.productNum * item.salePrice;
+        return obj;
+      }, 0);
     },
   },
   methods: {
@@ -333,6 +348,10 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/style/reset';
+* {
+  padding: 0;
+  margin: 0;
+}
 // 顶部star
 .topBar {
   width: 100%;
@@ -357,6 +376,7 @@ export default {
   cursor: pointer;
   color: #888888;
 }
+
 .el-icon-arrow-down {
   font-size: 12px;
 }
@@ -374,7 +394,7 @@ export default {
   margin-top: -69px;
 }
 
-.drop{
+.drop {
   margin-top: -20px;
   margin-left: -60px;
 }
@@ -440,34 +460,35 @@ export default {
   float: right;
   margin-top: -122px;
   margin-right: -110px;
+  display: inline;
 }
 
 .buy {
   float: right;
 }
 
-.drop1{
+.drop1 {
   margin-right: -70px;
 }
 
-.item-img{
+.item-img {
   float: left;
 }
 
-.item-img img{
+.item-img img {
   width: 60px;
   height: 60px;
   margin-top: 20px;
 }
 
-.item-cart{
+.item-cart {
   width: 420px;
   height: 100px;
   line-height: 100px;
   text-align: center;
 }
 
-.item-cart span{
+.item-cart span {
   display: inline-block;
   height: 100px;
   width: 80px;
@@ -483,6 +504,7 @@ export default {
   height: 40px;
   color: white;
 }
+
 //导航1end
 //导航2star
 .nav {

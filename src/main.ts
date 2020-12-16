@@ -40,7 +40,6 @@ Vue.config.productionTip = false;
 axios.interceptors.request.use((config) => {
   // 如何从本地获取数据：(存储的为对象类型) const token = getStore('token');  不要用这个写法
   const token = localStorage.getItem('token');
-  console.log(token);
   if (token) {
     // 表示用户已登录
     const obj = config;

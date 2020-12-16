@@ -182,6 +182,10 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/style/reset";
+* {
+  padding: 0;
+  margin: 0;
+}
 //轮播图
 .banner .w {
   color: white;
