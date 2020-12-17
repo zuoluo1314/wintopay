@@ -186,6 +186,9 @@ export default {
   padding: 0;
   margin: 0;
 }
+.home {
+  margin: 0 20px;
+} // 样式居中
 //轮播图
 .banner .w {
   color: white;
@@ -302,8 +305,8 @@ export default {
 .contact{
   position: fixed;
   bottom: 60px;
-  right: 0;
-  float: right;
+  right: 0px;
+  // float: right; 这个使用脱离标准文档流，页面直接偏右扩展，页面布局混乱
   z-index: 1001;
 }
 

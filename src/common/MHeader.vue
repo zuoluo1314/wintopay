@@ -352,6 +352,9 @@ export default {
   padding: 0;
   margin: 0;
 }
+// .header-box {
+//   margin: 0 auto;
+// }
 // 顶部star
 .topBar {
   width: 100%;
@@ -362,7 +365,7 @@ export default {
 .container {
   width: 1226px;
   height: 69px;
-  margin: 0 auto;
+  margin: 0 auto; // 样式居中
 }
 
 .topBar .container .left {
@@ -415,9 +418,10 @@ export default {
 //顶部end
 //导航1 star
 .header {
-  width: 100%;
+  width: 1226px;
   height: 122px;
   background-color: #ffffff;
+  margin: 0 auto; // 样式居中
 }
 
 .header .container {
@@ -508,9 +512,10 @@ export default {
 //导航1end
 //导航2star
 .nav {
-  width: 100%;
+  width: 1226px;
   height: 40px;
   background-color: #2199c6;
+  margin: 0 auto; // 样式居中
 }
 
 .nav .container {

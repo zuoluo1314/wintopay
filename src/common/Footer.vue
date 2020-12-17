@@ -93,8 +93,9 @@ export default {};
 @import "@/assets/style/reset";
 //脚部start
 .footer{
-  width: 100%;
+  width: 1226px;
   height: 276px;
+  margin: 0 auto; // 样式居中
 }
 
 .footer .container{
