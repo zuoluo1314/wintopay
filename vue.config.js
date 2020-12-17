@@ -1,4 +1,6 @@
-//如何写接口，接口案例  修改了接口路径，一定要重启服务器
+//如何写接口，接口案例  修改了接口路径，一定要重启服务器  
+// 注意：接口尽量写在server>app.js中，写的时候记得npm init --yes
+
 //读取json文件需要通过fs模块
 const fs = require('fs');
 const express = require('express');
@@ -147,4 +149,5 @@ module.exports = {
     },
 }
 
-
+//nodemon app.js  在根目录目录下面启动服务器  将数据提交到3000端口服务器,实时监听3000端口服务器数据的变化
+app.listen(3000);

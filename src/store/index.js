@@ -25,7 +25,9 @@ export default new Vuex.Store({
     // 中英文切换7:持久化-取出数据
     INITLANGUAGE(state, language) {
       const languages = localStorage.getItem('language');
-      state.language = languages;
+      if (languages) {
+        state.language = languages;
+      }
     },
     // 搜索功能实现5:接受搜索到的商品
     JQUERYLIST(state, jqueryList) {
