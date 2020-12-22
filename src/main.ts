@@ -8,6 +8,7 @@ import VueI18n from 'vue-i18n';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import 'babel-polyfill';
 import 'element-ui/lib/theme-chalk/index.css';
 // 中英文切换1 安装npm install vue-i18n --save  中英文切换2 lang文件夹建立中英文文件
 // 中英文切换3 项目引入  import VueI18n from 'vue-i18n';

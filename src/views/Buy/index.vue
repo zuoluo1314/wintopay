@@ -1,6 +1,6 @@
 <template>
   <!-- 结算2：结算组件页面实现 -->
-  <div>
+  <div class="buyAddress">
     <!-- 收货地址实现：采用element-Dialog自定义内容 -->
     <div class="address">
       <h2>收获地址</h2>
@@ -141,6 +141,11 @@ export default {
 // 导入重置样式
 @import url('../reset.css');
 // 收货start
+.buyAddress {
+  margin: 0 auto;
+  width: 1226px;
+}
+
 .textadd {
   width: 200px;
   height: 200px;

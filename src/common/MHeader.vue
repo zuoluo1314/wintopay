@@ -205,11 +205,9 @@
                 <!-- 结算1：样式实现 -->
                 <el-dropdown-item>
                   <span>{{ totalNum }}项商品 合计¥{{ totalPrice }}</span>
-                  <el-button type="primary" class="buy"
-                    ><router-link :to="{ name: 'Buy' }"
-                      >结算</router-link
-                    ></el-button
-                  >
+                  <el-button type="primary" class="buy">
+                    <router-link :to="{ name: 'Buy' }">结算</router-link>
+                  </el-button>
                 </el-dropdown-item>
                 <el-dropdown-item class="item-cart" v-if="!totalNum">
                   <span>购物车为空</span>
