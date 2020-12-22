@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="resiger">
     <div class="bread">
       <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
@@ -348,6 +348,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.resiger {
+  width: 1226px;
+  margin: 0 auto;
+}
+
 #code {
   width: 100px;
   height: 100px;
