@@ -187,9 +187,13 @@ export default {
   margin: 0;
 }
 .home {
-  margin: 0 20px;
+  margin: 0 auto;
 } // 样式居中
 //轮播图
+.banner {
+  width: 1226px;
+  margin: 0 auto;
+}
 .banner .w {
   color: white;
 }
@@ -199,13 +203,16 @@ export default {
   width: 1226px;
   // height: 470px;
   background-color: white;
+  margin: 0 auto;
 }
 
 .title {
-  width: 100%;
+  width: 1226px;
   height: 22px;
   color: black;
   font-size: 21px;
+  margin-left: 20px;
+  margin: 0 auto;
 }
 
 .good .good-item{
