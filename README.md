@@ -1,5 +1,7 @@
-图片项目首页效果展示:
+项目首页顶部+导航+轮播图效果展示:
 ![image](https://github.com/zuoluo1314/wintopay/blob/master/src/assets/images/home1.png)
+
+项目首页特色商品效果展示:
 ![image](https://github.com/zuoluo1314/wintopay/blob/master/src/assets/images/home2.png)
 
 主要技术开发流程：
